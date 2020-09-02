@@ -16,3 +16,15 @@
   height: calc(1.5em + .75rem + 2px);
   line-height: calc(1.5em + .75rem + 2px);
 }
+.start-page{
+  height: 300px;
+  line-height: 300px;
+  color: #ccc;
+  font-size: 30px;
+  text-align: center;
+}
+.left-panel{
+  position: relative;
+  min-height: 100vh;
+}
+
