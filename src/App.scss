@@ -26,5 +26,13 @@
 .left-panel{
   position: relative;
   min-height: 100vh;
+  .button-group{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .no-border{
+      border-radius: 0;
+    }
+  }
 }
 

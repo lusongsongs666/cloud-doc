@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import './TabList.sass'
+import './TabList.scss'
 
 const TabList = ({ files, activeId, unsavedIds, onTabClick, onCloseTab }) => {
   return (
     <ul className="nav nav-pills tablist-component">
       {
         files.map(file => {
+          const withUnsavedMark = unsavedIds.includes(file.id);
           const fClassNames = classNames({
             'nav-link': true,
-            'active': file.id === activeId
+            'active': file.id === activeId,
+            'withUnsaved': withUnsavedMark
           });
           return (
             <li
@@ -25,11 +27,18 @@ const TabList = ({ files, activeId, unsavedIds, onTabClick, onCloseTab }) => {
                 onClick={e => {e.preventDefault(); onTabClick(file.id)}}
               >
                 {file.title}
-                <span className="col-2 close-icon">
+                <span
+                  className="col-2 ml-2 close-icon"
+                  onClick={e => {e.stopPropagation(); onCloseTab(file.id)}}
+                >
                   <FontAwesomeIcon
                     icon={faTimes}
                   />
                 </span>
+                { withUnsavedMark &&
+                  <span className="rounded-circle ml-2 unsaved-icon">
+                  </span>
+                }
               </a>
             </li>
           )}
@@ -41,7 +50,7 @@ const TabList = ({ files, activeId, unsavedIds, onTabClick, onCloseTab }) => {
 
 TabList.propTypes = {
   files: PropTypes.array,
-  activeId: PropTypes.number,
+  activeId: PropTypes.string,
   unsavedIds: PropTypes.array,
   onTabClick: PropTypes.func,
   onCloseTab: PropTypes.func
